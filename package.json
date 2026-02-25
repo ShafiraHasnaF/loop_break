@@ -1,0 +1,25 @@
+{
+  "name": "loop_break",
+  "version": "1.0.0",
+  "description": "a simple website that periodically interrupts your hyperfocus with micro-break suggestions to rest your eyes and mind",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShafiraHasnaF/loop_break.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ShafiraHasnaF/loop_break/issues"
+  },
+  "homepage": "https://github.com/ShafiraHasnaF/loop_break#readme",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.2.1",
+    "tailwindcss": "^4.2.1"
+  }
+}
