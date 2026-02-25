@@ -18,16 +18,59 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Anaheim:wght@400..800&display=swap" rel="stylesheet">
 </head>
 
-<body>
-    <main class="flex flex-row justify-center items-center h-screen">
-        <div class="bg-amber-600 rounded-xl p-4">
-        Tes tailwind
-    </div>
+<body class="font-['Jersey_10'] bg-gray-100">
+    <main class="flex flex-col justify-center items-center h-screen sm:mx-3">
+        <h1 class="text-3xl">Hello, <span class="random-name"></span>Lorem ipsum</h1>
+        
+        <div class="bg-yellow-100 flex flex-col justify-center items-center rounded-lg mt-4 p-6 gap-2.5 shadow-md border-2 border-yellow-300 flex-wrap max-w-md mx-4 active">
+            <p class="text-amber-900 text-xl text-center">Set your reminder interval</p>
+            <div class="flex flex-row gap-4 py-1.5 flex-wrap justify-center">
+                <button class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors min-w-20 flex-1 border-2 border-amber-900">
+                    <h1 class="text-2xl">5</h1>
+                    <p class="-mt-2.5">minutes</p>
+                </button>
+                <button class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors min-w-20 flex-1 border-2 border-amber-900">
+                    <h1 class="text-2xl">10</h1>
+                    <p class="-mt-2.5">minutes</p>
+                </button>
+                <button class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors min-w-20 flex-1 border-2 border-amber-900">
+                    <h1 class="text-2xl">15</h1>
+                    <p class="-mt-2.5">minutes</p>
+                </button>
+            </div>
+            <button class="bg-amber-500 text-white px-4 py-1 rounded-lg hover:bg-amber-700 transition-colors min-w-20 w-full border-2 border-amber-900">
+                    Custom
+                </button>
+        </div>
+
+        <div
+            class="bg-yellow-100 flex flex-col justify-center items-center rounded-lg mt-4 p-6 px-8 gap-2.5 shadow-md border-2 border-yellow-300 flex-wrap max-w-md mx-4">
+            <p class="text-amber-900 text-xl text-center">Set your reminder interval</p>
+            <div class="flex flex-row gap-4 py-1.5 flex-wrap justify-center w-full">
+                <div class="text-center text-amber-950 flex-1">
+                    <div
+                        class="bg-amber-600 text-white text-center px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors w-full border-2 border-amber-900">
+                        00:00
+                    </div>
+                    <p class="pt-1.5 text-sm">Hours</p>
+                </div>
+                <div class="text-center text-amber-950 flex-1">
+                    <div
+                        class="bg-amber-600 text-white text-center px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors w-full border-2 border-amber-900">
+                        00:00
+                    </div>
+                    <p class="pt-1.5 text-sm">Minutes</p>
+                </div>
+            </div>
+            <button
+                class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-1 rounded-lg transition-colors w-full border-2 border-amber-900">
+                Start Timer
+            </button>
+        </div>
     </main>
-    
+
     <script src="./assets/script.js"></script>
 </body>
 
