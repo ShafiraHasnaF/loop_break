@@ -21,8 +21,77 @@
 </head>
 
 <body class="font-['Jersey_10'] bg-gray-100">
-    <main class="flex flex-col justify-center items-center h-screen sm:mx-3">
-        
+    <main class="flex flex-col justify-center items-center h-screen sm:mx-6">
+        <h1 class="text-3xl">Hello, <span class="random-name"></span>Lorem ipsum</h1>
+        <p class="text-xl">How often would you like to be reminded?</p>
+
+        <div
+            class="bg-yellow-100 flex flex-col justify-center items-center rounded-lg mt-4 p-6 gap-2.5 shadow-md border-2 border-yellow-300 max-w-md mx-4 w-full">
+            <p class="text-amber-900 text-xl text-center">Set your reminder interval</p>
+            <div class="flex flex-row gap-4 py-1.5 flex-wrap justify-center w-full">
+                <button
+                    class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors min-w-20 flex-1 border-2 border-amber-900">
+                    <h1 class="text-2xl">5</h1>
+                    <p class="-mt-2.5">minutes</p>
+                </button>
+                <button
+                    class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors min-w-20 flex-1 border-2 border-amber-900">
+                    <h1 class="text-2xl">10</h1>
+                    <p class="-mt-2.5">minutes</p>
+                </button>
+                <button
+                    class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors min-w-20 flex-1 border-2 border-amber-900">
+                    <h1 class="text-2xl">15</h1>
+                    <p class="-mt-2.5">minutes</p>
+                </button>
+            </div>
+            <button
+                class="bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors w-full border-2 border-amber-900">
+                Custom
+            </button>
+        </div>
+
+        <div
+            class="bg-yellow-100 flex flex-col justify-center items-center rounded-lg mt-4 p-6 gap-2.5 shadow-md border-2 border-yellow-300 max-w-md mx-4 w-full">
+            <p class="text-amber-900 text-xl text-center">Set your reminder interval</p>
+            <div class="flex flex-row gap-4 py-1.5 flex-wrap justify-center w-full">
+                <div class="text-center text-amber-950 flex-1">
+                    <div
+                        class="bg-amber-600 text-white text-center px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors w-full border-2 border-amber-900">
+                        00:00
+                    </div>
+                    <p class="pt-1.5 text-sm">Hours</p>
+                </div>
+                <div class="text-center text-amber-950 flex-1">
+                    <div
+                        class="bg-amber-600 text-white text-center px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors w-full border-2 border-amber-900">
+                        00:00
+                    </div>
+                    <p class="pt-1.5 text-sm">Minutes</p>
+                </div>
+            </div>
+            <button
+                class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg transition-colors w-full border-2 border-amber-900">
+                Start Timer
+            </button>
+        </div>
+
+        <div
+            class="bg-yellow-100 flex flex-col justify-center items-center rounded-lg mt-4 p-6 gap-2.5 shadow-md border-2 border-yellow-300 max-w-md mx-4 w-full">
+            <p class="text-amber-900 text-xl text-center">I'll remind you in...</p>
+            <h1 class="text-7xl text-amber-950">00:00</h1>
+
+            <div class="grid grid-cols-2 gap-4 py-1.5 w-full">
+                <button
+                    class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors min-w-20 flex-1 border-2 border-amber-900 whitespace-nowrap">
+                    Remind later
+                </button>
+                <button
+                    class="bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors border-2 border-amber-900 whitespace-nowrap">
+                    Stop
+                </button>
+            </div>
+        </div>
     </main>
 
     <script src="./assets/script.js"></script>
