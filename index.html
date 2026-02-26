@@ -18,12 +18,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+    <style>
+        .pattern-cross {
+            background-image: 
+                repeating-linear-gradient(to right, #e7e5e4 0 1px, transparent 1px 8px),
+                repeating-linear-gradient(to bottom, #e7e5e4 0 1px, transparent 1px 8px);
+            background-size: 20px 20px;
+        }
+    </style>
 </head>
 
-<body class="font-['Jersey_10'] bg-gray-100">
+<body class="font-['Jersey_10'] pattern-cross pattern-blue-500 pattern-bg-white pattern-size-6 pattern-opacity-20">
     <main class="flex flex-col justify-center items-center h-screen sm:mx-6">
-        <h1 class="text-3xl">Hello, <span id="random-name"></span></h1>
-        <p class="text-xl">How often would you like to be reminded?</p>
+        <h1 class="text-3xl text-amber-950">Hello, <span id="random-name"></span></h1>
+        <p class="text-xl text-amber-950">How often would you like to be reminded?</p>
 
         <div
             class="active main-card-1 bg-yellow-100 flex flex-col justify-center items-center rounded-lg mt-4 p-6 gap-2.5 shadow-md border-2 border-yellow-300 max-w-md mx-4 w-full">
@@ -32,29 +40,29 @@
                 <button
                     class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors min-w-20 flex-1 border-2 border-amber-900">
                     <h1 class="mins-5 text-2xl">5</h1>
-                    <p class="-mt-2.5">minutes</p>
+                    <p class="-mt-2.5 text-xl">minutes</p>
                 </button>
                 <button
                     class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors min-w-20 flex-1 border-2 border-amber-900">
                     <h1 class="mins-10 text-2xl">10</h1>
-                    <p class="-mt-2.5">minutes</p>
+                    <p class="-mt-2.5 text-xl">minutes</p>
                 </button>
                 <button
                     class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors min-w-20 flex-1 border-2 border-amber-900">
                     <h1 class="mins-15 text-2xl">15</h1>
-                    <p class="-mt-2.5">minutes</p>
+                    <p class="-mt-2.5 text-xl">minutes</p>
                 </button>
             </div>
             <button
-                class="btn-custom bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors w-full border-2 border-amber-900">
-                Custom
+                class="btn-custom text-2xl bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors w-full border-2 border-amber-900">
+                CUSTOM
             </button>
         </div>
 
         <div
             class="main-card-2 bg-yellow-100 flex flex-col justify-center items-center rounded-lg mt-4 p-6 gap-2.5 shadow-md border-2 border-yellow-300 max-w-md mx-4 w-full">
             <p class="text-amber-900 text-xl text-center">Set your reminder interval</p>
-            <div class="flex flex-row gap-4 py-1.5 justify-center w-full">
+            <div class="flex flex-row mb-1.5 justify-center w-full border-2 border-orange-400 rounded-lg bg-orange-300">
                 <div class="text-center text-amber-950 flex-1">
                     <input type="number" min="0" max="23" value="0"
                         class="input-hour text-amber-950 text-center text-7xl px-4 rounded-lg w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none focus:outline-none">
@@ -67,7 +75,7 @@
                 </div>
             </div>
             <button
-                class="btn-start bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg transition-colors w-full border-2 border-amber-900">
+                class="btn-start text-2xl bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg transition-colors w-full border-2 border-amber-900">
                 Start Timer
             </button>
         </div>
@@ -78,23 +86,23 @@
             <h1 class="timer text-7xl text-amber-950">00:00:00</h1>
 
             <button
-                class="btn-pause bg-amber-400 text-white px-4 py-2 rounded-lg hover:bg-amber-600 transition-colors w-full border-2 border-amber-900">
+                class="btn-pause text-2xl bg-amber-400 text-amber-800 hover:text-amber-100 px-4 py-2 rounded-lg hover:bg-amber-600 transition-colors w-full border-2 border-amber-900">
                 PAUSE
             </button>
             <div class="grid grid-cols-2 gap-4 py-1.5 w-full">
                 <button
-                    class="btn-remind bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors min-w-20 flex-1 border-2 border-amber-900 whitespace-nowrap">
+                    class="btn-remind text-xl bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors min-w-20 flex-1 border-2 border-amber-900 whitespace-nowrap">
                     Remind later
                 </button>
                 <button
-                    class="btn-stop bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors border-2 border-amber-900 whitespace-nowrap">
+                    class="btn-stop text-xl bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors border-2 border-amber-900 whitespace-nowrap">
                     Stop
                 </button>
             </div>
         </div>
 
         <div class="alert flex flex-col justify-center items-center rounded-lg mt-4 py-0.5 px-8 shadow-md border-2 bg-red-300 border-red-700 max-w-md mx-4 animate-ping">
-            <p class="text-sm text-red-700">Time's Up!</p>
+            <p class="text-sm text-red-700">Take a break!</p>
         </div>
     </main>
 
