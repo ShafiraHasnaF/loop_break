@@ -2,6 +2,9 @@
 
 a website that periodically interrupts your hyperfocus with micro-break suggestions to rest your eyes and mind
 
+## Live Demo
+[https://shafirahasnaf.github.io/loop_break/](https://shafirahasnaf.github.io/loop_break/)
+
 ## Tech Stacks
 - HTML5
 - TailwindCSS
