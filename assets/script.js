@@ -1,8 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const localstorage = muatLocalStorage();
     const nameElement = document.getElementById("random-name");
-    nameElement.textContent = getRandomName();
-    console.log('muncul nama rdm')
+    // nameElement.textContent = getRandomName();
+    let savedName = localStorage.getItem('nama');
+    if (savedName) {
+        nameElement.textContent = savedName;
+        namaSekarang = savedName;
+    } else {
+        const namaBaru = getRandomName();
+        nameElement.textContent = namaBaru;
+        namaSekarang = namaBaru;
+        localStorage.setItem('nama', namaBaru);
+    }
+    if (!localstorage) {
+        screenAktifKe('screen1');
+    }
 });
+let namaSekarang = ""; 
 const randomNames = [
     "Hungry Mammoth", "Moldy Rice", "Rotten Egg", "Cute Duck",
     "Sleepy Sloth", "Crazy Cat", "Lazy Dog", "Spicy Chili",
@@ -31,6 +45,8 @@ const angkaTimer = document.querySelector(".timer");
 const btnRemind = document.querySelector(".btn-remind");
 const btnStop = document.querySelector(".btn-stop");
 
+const timeup_alert = document.querySelector(".alert");
+
 let durasimenit = 0;
 let sisaInDetik = 0;
 let intervalBreak = null;
@@ -52,6 +68,7 @@ function screenAktifKe(screen) {
     }
 }
 screenAktifKe('screen1');
+timeup_alert.classList.add("hidden");
 
 function mulaiTimer(menit) {
     durasimenit = menit;
@@ -61,19 +78,7 @@ function mulaiTimer(menit) {
         intervalBreak = null;
     }
     updateTampilanTimer();
-    intervalBreak = setInterval(() => {
-        sisaInDetik--;
-        if (sisaInDetik <= 0) {
-            clearInterval(intervalBreak);
-            intervalBreak = null;
-            sisaInDetik = 0;
-            updateTampilanTimer();
-            alert("cek waktu habis");
-            angkaTimer.textContent = "00:00:00";
-        } else {
-            updateTampilanTimer();
-        }
-    }, 1000);
+    resetTimer();
     screenAktifKe('screen3');
 }
 
@@ -89,19 +94,42 @@ function updateTampilanTimer() {
     angkaTimer.textContent = stringJam + ":" + stringMenit + ":" + stringDetik;
 }
 
+function resetTimer() {
+    intervalBreak = setInterval(() => {
+        sisaInDetik--;
+        if (sisaInDetik <= 0) {
+            clearInterval(intervalBreak);
+            intervalBreak = null;
+            sisaInDetik = 0;
+            updateTampilanTimer();
+            timeup_alert.classList.remove("hidden");
+            // alert("cek waktu habis");
+            angkaTimer.textContent = "00:00:00";
+            localStorage.removeItem('timerData');
+            localStorage.removeItem('nama');
+        } else {
+            updateTampilanTimer();
+            simpanLocalStorage();
+        }
+    }, 1000);
+}
+
 btn5.addEventListener("click", () => { 
     let displayMenit = parseInt(btn5.textContent);
     mulaiTimer(displayMenit);
+    simpanLocalStorage();
 });
 
 btn10.addEventListener("click", () => { 
     let displayMenit = parseInt(btn10.textContent);
     mulaiTimer(displayMenit);
+    simpanLocalStorage();
 });
 
 btn15.addEventListener("click", () => { 
     let displayMenit = parseInt(btn15.textContent);
     mulaiTimer(displayMenit);
+    simpanLocalStorage();
 });
 
 btnCustom.addEventListener("click", () => {
@@ -117,9 +145,11 @@ btnStartCustom.addEventListener("click", function() {
     }
     let totalmenit = (jam * 60) + menit;
     mulaiTimer(totalmenit);
+    simpanLocalStorage();
 });
 
 btnRemind.addEventListener("click", function () { 
+    timeup_alert.classList.add("hidden");
     if (durasimenit === 0) {
         alert("pilih waktu");
         screenAktifKe('screen1');
@@ -131,25 +161,18 @@ btnRemind.addEventListener("click", function () {
     }
     sisaInDetik = durasimenit * 60;
     updateTampilanTimer();
-    intervalBreak = setInterval(function() {
-        sisaInDetik--;
-        if (sisaInDetik <= 0) {
-            clearInterval(intervalBreak);
-            intervalBreak = null;
-            sisaInDetik = 0;
-            updateTampilanTimer();
-            alert('Time is up!');
-        } else {
-            updateTampilanTimer();
-        }
-    }, 1000);
+    resetTimer();
+    simpanLocalStorage();
 });
 
 btnStop.addEventListener("click", function () { 
+    timeup_alert.classList.add("hidden");
     if (intervalBreak) { 
         clearInterval(intervalBreak);
         intervalBreak = null;
     }
+    localStorage.removeItem('timerData');
+    localStorage.removeItem('nama');
     sisaInDetik = 0;
     durasimenit = 0;
     angkaTimer.textContent = "00:00:00";
@@ -192,3 +215,62 @@ inputMenit.addEventListener('input', function() {
     if (val < 0) this.value = 0;
     if (this.value === '') this.value = 0;
 });
+
+function simpanLocalStorage() {
+    const data = {
+        durasi: durasimenit,
+        sisa: sisaInDetik,
+        screen: screenAktif === screen1 ? 'screen1' :
+            screenAktif === screen2 ? 'screen2' : 'screen3',
+        waktuSimpan: Date.now(),
+        totalAwal: durasimenit * 60,
+        nama : namaSekarang
+    };
+    const dataString = JSON.stringify(data);
+    localStorage.setItem('timerData', dataString);
+
+    console.log('simpan yes')
+    console.log(data)
+}
+
+function muatLocalStorage() {
+    const dataString = localStorage.getItem('timerData');
+    if (!dataString) {
+        console.log('ls kosong')
+        return
+    }
+    const data = JSON.parse(dataString);
+    console.log('mau muat')
+    console.log(data)
+
+    const waktuSekarang = Date.now();
+    const waktuTimerJalan = (waktuSekarang - data.waktuSimpan) / (1000 * 60 * 60)
+    if (waktuTimerJalan >24) {
+        localStorage.removeItem('timerData');
+        localStorage.removeItem('nama');
+        return false;
+    }
+
+    const selisihDetik = Math.floor((waktuSekarang - data.waktuSimpan) / 1000);
+    let sisaWaktuBaru = data.sisa - selisihDetik;
+    if (sisaWaktuBaru <=0) {
+        console.log('wktu habis')
+        durasimenit = data.durasi
+        sisaInDetik = 0;
+        updateTampilanTimer();
+        timeup_alert.classList.remove("hidden");
+        return true
+    }
+
+    durasimenit = data.durasi;
+    sisaInDetik = sisaWaktuBaru;
+    updateTampilanTimer();
+    screenAktifKe(data.screen)
+    if (intervalBreak) {
+        clearInterval(intervalBreak);
+        intervalBreak = null;
+    }
+    resetTimer()
+    return true
+
+}
