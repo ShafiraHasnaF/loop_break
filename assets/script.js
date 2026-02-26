@@ -42,6 +42,7 @@ const inputMenit = document.querySelector(".input-minute");
 const btnStartCustom = document.querySelector(".btn-start");
 
 const angkaTimer = document.querySelector(".timer");
+const btnPause = document.querySelector(".btn-pause");
 const btnRemind = document.querySelector(".btn-remind");
 const btnStop = document.querySelector(".btn-stop");
 
@@ -73,6 +74,8 @@ timeup_alert.classList.add("hidden");
 function mulaiTimer(menit) {
     durasimenit = menit;
     sisaInDetik = durasimenit * 60;
+    timerPause = false
+    if (btnPause) btnPause.textContent = "PAUSE"
     if (intervalBreak) {
         clearInterval(intervalBreak);
         intervalBreak = null;
@@ -94,7 +97,36 @@ function updateTampilanTimer() {
     angkaTimer.textContent = stringJam + ":" + stringMenit + ":" + stringDetik;
 }
 
+let timerPause = false
+let sisaSaatPause = 0
+const alarm = new Audio('./assets/mp3/alarm.mp3')
+function playAlarm() {
+    alarm.play();
+    alarm.loop = true
+    alarm.volume = 1;
+} 
+function stopAlarm() {
+    alarm.pause();
+}
+function pauseTimer() {
+    if (intervalBreak) { 
+        clearInterval(intervalBreak);
+        intervalBreak = null;
+        timerPause = true;
+        sisaSaatPause = sisaInDetik;
+        document.querySelector(".btn-pause").textContent = "RESUME"
+        console.log('paus')
+        console.log(sisaSaatPause)
+    }
+}
+function resumeTimer() {
+    if (timerPause) {
+        resetTimer();
+    }
+}
 function resetTimer() {
+    timerPause = false;
+    if (btnPause) btnPause.textContent = 'PAUSE';
     intervalBreak = setInterval(() => {
         sisaInDetik--;
         if (sisaInDetik <= 0) {
@@ -104,6 +136,7 @@ function resetTimer() {
             updateTampilanTimer();
             timeup_alert.classList.remove("hidden");
             // alert("cek waktu habis");
+            playAlarm();
             angkaTimer.textContent = "00:00:00";
             localStorage.removeItem('timerData');
             localStorage.removeItem('nama');
@@ -113,6 +146,13 @@ function resetTimer() {
         }
     }, 1000);
 }
+btnPause.addEventListener("click", function () {
+    if (!timerPause) {
+        pauseTimer();
+    } else {
+        resumeTimer();
+    }
+})
 
 btn5.addEventListener("click", () => { 
     let displayMenit = parseInt(btn5.textContent);
@@ -149,6 +189,7 @@ btnStartCustom.addEventListener("click", function() {
 });
 
 btnRemind.addEventListener("click", function () { 
+    stopAlarm();
     timeup_alert.classList.add("hidden");
     if (durasimenit === 0) {
         alert("pilih waktu");
@@ -159,6 +200,8 @@ btnRemind.addEventListener("click", function () {
         clearInterval(intervalBreak);
         intervalBreak = null;
     }
+    timerPause = false;
+    if (btnPause) btnPause.textContent = 'PAUSE';
     sisaInDetik = durasimenit * 60;
     updateTampilanTimer();
     resetTimer();
@@ -166,11 +209,14 @@ btnRemind.addEventListener("click", function () {
 });
 
 btnStop.addEventListener("click", function () { 
+    stopAlarm();
     timeup_alert.classList.add("hidden");
     if (intervalBreak) { 
         clearInterval(intervalBreak);
         intervalBreak = null;
     }
+    timerPause = false;
+    if (btnPause) btnPause.textContent = 'PAUSE';
     localStorage.removeItem('timerData');
     localStorage.removeItem('nama');
     sisaInDetik = 0;
@@ -224,7 +270,9 @@ function simpanLocalStorage() {
             screenAktif === screen2 ? 'screen2' : 'screen3',
         waktuSimpan: Date.now(),
         totalAwal: durasimenit * 60,
-        nama : namaSekarang
+        nama: namaSekarang,
+        isPaused: timerPause,
+        sisaWaktuPause: sisaSaatPause
     };
     const dataString = JSON.stringify(data);
     localStorage.setItem('timerData', dataString);
@@ -250,6 +298,13 @@ function muatLocalStorage() {
         localStorage.removeItem('nama');
         return false;
     }
+    if (data.isPaused) { 
+        timerPause = true;
+        if (btnPause) btnPause.textContent = 'RESUME';
+    } else {
+        timerPause = false;
+        if (btnPause) btnPause.textContent = 'PAUSE';
+    }
 
     const selisihDetik = Math.floor((waktuSekarang - data.waktuSimpan) / 1000);
     let sisaWaktuBaru = data.sisa - selisihDetik;
@@ -258,6 +313,7 @@ function muatLocalStorage() {
         durasimenit = data.durasi
         sisaInDetik = 0;
         updateTampilanTimer();
+        playAlarm();
         timeup_alert.classList.remove("hidden");
         return true
     }
